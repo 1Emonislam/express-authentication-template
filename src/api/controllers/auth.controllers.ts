@@ -48,7 +48,7 @@ export const registerHandler: RequestHandler = async (req: Request, res: Respons
             issue.password = 'Password should contain min 8 letter password, with at least a symbol, upper and lower case'
         }
         if (userExist) {
-            issue.email = 'Email Already exists!'
+            issue.email = 'Already exists!'
         }
         if (password !== password2) {
             issue.password2 = 'Password Do Not Matched!'
