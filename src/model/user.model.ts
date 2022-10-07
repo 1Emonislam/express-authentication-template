@@ -1,4 +1,4 @@
-import { userEnum } from "../helpers/enums/user.enum";
+import { userEnumRoles } from "../helpers/enums/user.enum";
 import { IUser } from "../helpers/interfaces/user.interface";
 import { Schema, model } from "mongoose";
 import bcrypt from 'bcryptjs'
@@ -19,8 +19,8 @@ const userSchema = new Schema<IUser>({
     },
     roles: {
         type: [String],
-        enum: Object.values(userEnum),
-        default: (Object.values(userEnum) as Array<string>).filter((item) => item === 'student')
+        enum: Object.values(userEnumRoles),
+        default: (Object.values(userEnumRoles) as Array<string>).filter((item) => item === 'student')
     },
 
 }, { timestamps: true });
