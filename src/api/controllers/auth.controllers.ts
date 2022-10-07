@@ -9,7 +9,7 @@ export const loginHandler: RequestHandler = async (req: Request, res: Response, 
     const password = req?.body?.password;
     //console.log(req.body)
     if (!(email)) {
-        return res.status(400).json({ error: { "user": "Could not find user Please provide Email or Phone Number or UserName" } })
+        return res.status(400).json({ error: { "user": "Could not find user!" } })
     }
     let user =  await User.findOne({ email })
     try {
