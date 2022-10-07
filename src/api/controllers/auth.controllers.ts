@@ -7,8 +7,8 @@ import moment from 'moment'
 import { isValidEmail, isValidPassword, mailSending } from "../../utils/func";
 export const loginHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     const email = req?.body?.email?.toLowerCase();
-    const phone = req?.body?.phone;
     const password = req?.body?.password;
+    const phone = req?.body?.phone;
     //console.log(req.body)
     if (!(email || phone)) {
         return res.status(400).json({ error: { "user": "Could not find user!" } })
@@ -20,7 +20,7 @@ export const loginHandler: RequestHandler = async (req: Request, res: Response, 
         }
         //@ts-ignore
         if (!(user && (await user.matchPassword(password)))) {
-            return res.status(400).json({ error: { "password": "Password invalid! please provide valid password!" } });
+            return res.status(400).json({ error: { "password": "Password invalid! please provide valid password!" }, isError: true, isSuccess: false });
             //@ts-ignore
         } else if (user && (await user.matchPassword(password))) {
             const accessToken = genToken(_.omit(user?.toObject(), ["password"]))
