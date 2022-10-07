@@ -20,7 +20,7 @@ mongoose
     console.error(`⛔⛔⛔ Database connections Failed ⛔⛔⛔: ${JSON.stringify(err)}`);
   });
 //all routes here
-app.use(config.api_version + '/auth', authRoutes)
+app.use(`/api/${config.api_version}/auth`, authRoutes)
 app.get('/favicon.ico', (_req: Request, res: Response) => {
   res.status(204)
 });
