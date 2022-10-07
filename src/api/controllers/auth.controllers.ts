@@ -23,7 +23,7 @@ export const loginHandler: RequestHandler = async (req: Request, res: Response, 
             //@ts-ignore
         } else if (user && (await user.matchPassword(password))) {
             const accessToken = genToken(_.omit(user, ["password"]))
-            const expires = parseInt(config.cookie_expires || '30d') * 60 * 1000
+            const expires = (parseInt(config.cookie_expires || '30d')*24*60*60*1000)
             const options = {
                 expires: new Date(new Date().getTime() + expires),
                 httpOnly: true
@@ -62,7 +62,7 @@ export const registerHandler: RequestHandler = async (req: Request, res: Respons
         });
         if (!user) return res.status(500).json({ error: { 'output': 'Registration failed! internal server error!' } })
         const accessToken = genToken(_.omit(user?.toObject(), ["password"]))
-        const expires = parseInt(config.cookie_expires || '30d') * 60 * 1000
+        const expires = (parseInt(config.cookie_expires || '30d')*24*60*60*1000)
         const options = {
             expires: new Date(new Date().getTime() + expires),
             httpOnly: true
