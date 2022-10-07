@@ -5,6 +5,7 @@ import { genToken } from "../../utils/genJwtToken";
 import { config } from "../../config/config";
 import { generateUniqueAccountName, isValidEmail, isValidPassword } from "../../utils/func";
 export const loginHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('click')
     const email = req?.body?.email?.toLowerCase();
     const phone = req?.body?.phone;
     const username = req?.body?.username?.toLowerCase();
