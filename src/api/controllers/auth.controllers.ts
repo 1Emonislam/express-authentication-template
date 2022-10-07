@@ -1,7 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from "express"
 import User from "../../model/user.model";
 import _ from 'lodash'
-import { genToken, genToken_short_time } from "../../utils/genJwtToken";
+import { genToken, genToken_short_time, verify_jwt } from "../../utils/genJwtToken";
 import { config } from "../../config/config";
 import moment from 'moment'
 import { isValidEmail, isValidPassword, mailSending } from "../../utils/func";
@@ -492,11 +492,11 @@ export const resetPasswordHandler: RequestHandler = async (req: Request, res: Re
     try {
         const { password, password2 } = req.body;
         //@ts-ignore
-        const user = await User.findOne(req?.user?._id);
+        const user = await verify_jwt(req?.params?.token);
         // console.log(user)
         const issue: any = {};
         if (!user) {
-            issue.email = 'user credentials invalid!'
+            issue.email = 'credentials invalid! session expired!'
         }
         if (!password) {
             issue.password = 'Invalid Password Please provide valid password'
@@ -508,11 +508,15 @@ export const resetPasswordHandler: RequestHandler = async (req: Request, res: Re
             issue.password = "Password should contain min 8 letter password, with at least a symbol, upper and lower case"
         }
         if (Object.keys(issue)?.length) {
-            return res.status(400).json({ error: issue })
+            return res.status(400).json({ error: issue, isError: true, isSuccess: true })
         }
         if (user) {
-            user.password = password;
-            user.save().then(result => {
+            //@ts-ignore
+            const resetUser = await User.findOne({ _id: req?.user?._id })
+            //@ts-ignore
+            resetUser.password = password;
+            //@ts-ignore
+            resetUser.save().then(result => {
                 const accessToken = genToken(_.omit(result.toObject(), ["password"]))
                 const expires = (parseInt(config.cookie_expires || '30d') * 24 * 60 * 60 * 1000)
                 const options = {
