@@ -64,25 +64,6 @@ const billing_UID_GEN = async (length: number, id: any) => {
 }
 
 /**
-    * @param  {function} generateUniqueAccountName username unique gen
- */
-async function generateUniqueAccountName({ proposedName }: { proposedName: number }): Promise<any> {
-    return User.findOne({ username: proposedName })
-        .then(function (username: any) {
-            if (username) {
-                // console.log('no can do try again: ' + proposedName);
-                proposedName += Math.floor((Math.random() * 100) + 1);
-                return generateUniqueAccountName({ proposedName }); // <== return statement here
-            }
-            // console.log('proposed name is unique' + proposedName);
-            return proposedName;
-        })
-        .catch(function (err: any) {
-            throw new Error(err.message);
-        });
-}
-
-/**
  * Email Checking.
  * @param  {String} elementValue value of Email
  * @function 
@@ -101,4 +82,4 @@ const isValidPassword = (password: string): Boolean => {
     var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return re.test(password);
 }
-export { isValidNumber, billing_UID_GEN, generateUniqueAccountName, isValidEmail, isValidPassword }
+export { isValidNumber, billing_UID_GEN, isValidEmail, isValidPassword }

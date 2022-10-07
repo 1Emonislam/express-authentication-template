@@ -15,6 +15,9 @@ mongoose
   .connect(config.db_uri)
   .then(() => {
     console.log(`💖 💖 💖 Database Successfully Connected 💖 💖 💖`);
+    app.listen(config.port, () => {
+      console.log(`Listening On PORT ${config.port}`);
+    });
   })
   .catch((err: any) => {
     console.error(`⛔⛔⛔ Database connections Failed ⛔⛔⛔: ${JSON.stringify(err)}`);
@@ -24,7 +27,5 @@ app.use(`/api/${config.api_version}/auth`, authRoutes)
 app.get('/favicon.ico', (_req: Request, res: Response) => {
   res.status(204)
 });
-app.listen(config.port, () => {
-  console.log(`Listening On PORT ${config.port}`);
-});
+
 app.use([errorLog, errorHandlerNotify])
