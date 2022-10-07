@@ -542,10 +542,10 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
 
-express-error-handle@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/express-error-handle/-/express-error-handle-1.1.7.tgz#cba003e3edc21b820cb5cfc131d8ffff53175f7d"
-  integrity sha512-e4g1fD5F7jLiCItgY9hJBXK6ia35ECunhEDaK0nETawhFw5YaYMONDY82OvYC58KlX+mUx4ft0P8ToRH7v8OFQ==
+express-error-handle@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/express-error-handle/-/express-error-handle-1.1.9.tgz#1b67a5beda82549e63556691b33e08fc74d7b1c9"
+  integrity sha512-tEyGBaCqDLs1pst1IlEDVs6cBIHo6UrxVzGDHOPffDsjS0sSrj6Wt+h4yzUePMAtPx9q5totcRikpWaeMW4ieA==
 
 express@^4.17.1:
   version "4.18.1"
