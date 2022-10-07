@@ -1,4 +1,5 @@
-const User = require("../models/UserModel");
+import User from "../model/user.model";
+
 
 /**
  * @function {Funtion} translteBanglaToEngNum - English To Bangla Converter
