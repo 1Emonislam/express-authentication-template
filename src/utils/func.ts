@@ -1,5 +1,5 @@
-import User from "../model/user.model";
-
+import { config } from "../config/config";
+import nodemailer from 'nodemailer'
 
 /**
  * @function {Funtion} translteBanglaToEngNum - English To Bangla Converter
@@ -82,4 +82,30 @@ const isValidPassword = (password: string): Boolean => {
     var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return re.test(password);
 }
-export { isValidNumber, billing_UID_GEN, isValidEmail, isValidPassword }
+
+async function mailSending(sentTo: any, mailInfo: any, htmlMSG: any) {
+    try {
+        const option = {
+            service: config.gmail_host,
+            auth: {
+                user: config.admin_sender_email,
+                pass: config.gmail_password
+            }
+        }
+        const transporter = nodemailer.createTransport(option);
+        const mailOptions = {
+            from: `${config.domain} <${config.admin_sender_email}>`,
+            to: sentTo,
+            subject: mailInfo.subject,
+            html: htmlMSG,
+        };
+        await transporter.sendMail(mailOptions);
+        // console.log(transporter)
+        return true;
+    } catch (error) {
+        return false;
+    }
+
+}
+
+export { isValidNumber, billing_UID_GEN, isValidEmail, isValidPassword, mailSending }

@@ -4,15 +4,15 @@ import { Schema, model } from "mongoose";
 import bcrypt from 'bcryptjs'
 const userSchema = new Schema<IUser>({
     firstName: { type: String, required: [true, 'First Name is required!'] },
-    lastName: { type: String },
-    phone: { type: String },
+    lastName: { type: String, default: 'N/A' },
+    phone: { type: String, default: 'N/A' },
     email: { type: String, required: [true, 'Email is required!'] },
-    birthDate: { type: String },
-    nickName: { type: String },
-    about: { type: String },
-    gender: { type: String },
-    address: { type: String },
-    password: { type: String },
+    birthDate: { type: String, default: 'N/A' },
+    about: { type: String, default: 'N/A' },
+    gender: { type: String, default: 'N/A' },
+    address: { type: String, default: 'N/A' },
+    password: { type: String, required: [true, 'Password invalid!'] },
+    nationality: { type: String, default: 'N/A' },
     avatar: {
         type: String,
         default: 'https://gravatar.com/avatar/3385a4b3c13baa8a700cb41a27ef87c1'

@@ -15,7 +15,7 @@ const protect: RequestHandler = async (req, res, next) => {
             // console.log(token)
             const decoded = jwt.verify(token, config.jwt_secret);
             //@ts-ignore
-            const user = await User.findOne({ _id: decoded?.id }).select("-password");
+            const user = await User.findOne({ _id: decoded?._id }).select("-password");
             if (!user) {
                 return res.status(400).json({ error: { user: 'Please Login Before access this page!' } })
             } else {
@@ -29,10 +29,10 @@ const protect: RequestHandler = async (req, res, next) => {
         }
     } else if (token) {
         try {
-            // console.log(token)
+            //console.log(token)
             const decoded = jwt.verify(token, config.jwt_secret);
             //@ts-ignore
-            const user = await User.findOne({ _id: decoded?.id }).select("-password");
+            const user = await User.findOne({ _id: decoded?._id }).select("-password");
             if (!user) {
                 return res.status(400).json({ error: { user: 'Please Login Before access this page!' } })
             } else {
