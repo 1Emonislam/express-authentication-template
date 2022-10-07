@@ -6,13 +6,12 @@ import { config } from "../../config/config";
 import { isValidEmail, isValidPassword } from "../../utils/func";
 export const loginHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     const email = req?.body?.email?.toLowerCase();
-    const phone = req?.body?.phone;
     const password = req?.body?.password;
     //console.log(req.body)
-    if (!(email || phone)) {
+    if (!(email)) {
         return res.status(400).json({ error: { "user": "Could not find user Please provide Email or Phone Number or UserName" } })
     }
-    let user = await User.findOne({ email }) ? await User.findOne({ email }) : await User.findOne({ phone })
+    let user =  await User.findOne({ email })
     try {
         if (!user) {
             return res.status(400).json({ error: { "output": "Could not find user!" } })
@@ -22,7 +21,7 @@ export const loginHandler: RequestHandler = async (req: Request, res: Response, 
             return res.status(400).json({ error: { "password": "Password invalid! please provide valid password!" } });
             //@ts-ignore
         } else if (user && (await user.matchPassword(password))) {
-            const accessToken = genToken(_.omit(user, ["password"]))
+            const accessToken = genToken(_.omit(user?.toObject(), ["password"]))
             const expires = (parseInt(config.cookie_expires || '30d')*24*60*60*1000)
             const options = {
                 expires: new Date(new Date().getTime() + expires),
